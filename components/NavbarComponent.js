@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image'
+import Link from "next/link";
 import BrandLog from "../assets/images/brand.svg"
 
 const NavbarComponent = () => {
@@ -14,19 +15,19 @@ const NavbarComponent = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
+                            <Link className="nav-link" href="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Looking for Blood</a>
+                            <Link className="nav-link" href="lookingForBlood">Looking for Blood</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Dontate Blood</a>
+                            <Link className="nav-link" href="donateBlood">Donate Blood</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Learn</a>
+                            <Link className="nav-link" href="learn">Learn</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">login/signUp</a>
+                            <Link className="nav-link" href="login">login/signUp</Link>
                         </li>
                     </ul>
                 </div>
