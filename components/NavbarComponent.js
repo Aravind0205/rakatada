@@ -23,6 +23,9 @@ const NavbarComponent = () => {
                             <a className="nav-link" href="#">Dontate Blood</a>
                         </li>
                         <li className="nav-item">
+                            <a className="nav-link" href="#">Learn</a>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link" href="#">login/signUp</a>
                         </li>
                     </ul>

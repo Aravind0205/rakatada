@@ -24,6 +24,8 @@
 
 body {
   background: #ffffff;
+  color: #000000;
+  font-family: "Roboto Mono for Powerline", serif;
 }
 
 .app {
@@ -49,4 +51,35 @@ body {
 .navbar-toggler {
   color: #000000;
   background-color: #000000;
+}
+
+.hero-section {
+  background: #FAEBE3;
+}
+
+.hero-section-heading-container {
+  color: black;
+}
+
+.hero-section-des {
+  color: #807E7E;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.donate-action {
+  background: #FC7484;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  border: none;
+  margin-right: 25px;
+}
+
+.invite-action {
+    background: white;
+    color: black;
+    padding: 15px 25px;
+    border-radius: 10px;
+    border: none;
 }
