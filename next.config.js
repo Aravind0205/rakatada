@@ -7,6 +7,9 @@ const nextConfig = {
   trailingSlash: true,
   distDir: "dist",
   assetPrefix: "./",
+  images: {
+    unoptimized: true
+  },
 };
 
 module.exports = nextConfig;
