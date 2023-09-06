@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 
 const LookingForBlood = () => {
     const [selectedState, setSelectedState] = useState('');
@@ -6,6 +7,11 @@ const LookingForBlood = () => {
     const [selectedBloodGroup, setSelectedBloodGroup] = useState('');
     const [selectedBloodComponent, setSelectedBloodComponent] = useState('');
     const [isDistrictEnabled, setIsDistrictEnabled] = useState(false);
+    const [stateData, setStateData] = useState([]);
+    const [districtsData, setDistrictsData] = useState([]);
+    const [availableBlood, setAvailableBlood] = useState(undefined);
+    const [availableError, setAvailableError] = useState("");
+    const [loading, setIsLoading] = useState(true);
 
     const handleStateChange = (event) => {
         const newState = event.target.value;
@@ -29,6 +35,9 @@ const LookingForBlood = () => {
     };
 
     const handleSearch = () => {
+        setAvailableError("");
+        setAvailableBlood(undefined);
+        setIsLoading(false)
         if (!selectedState) {
             alert('State is required.');
             return;
@@ -45,15 +54,36 @@ const LookingForBlood = () => {
             alert('Blood Component is required.');
             return;
         }
+        if (selectedState && selectedDistrict && selectedBloodGroup && selectedBloodComponent) {
+            axios.get(`http://localhost:5000/rakadata/availableBlood?state=${selectedState}&district=${selectedDistrict}&bloodGroup=${selectedBloodGroup}&componentType=${selectedBloodComponent}`)
+                .then(response => setAvailableBlood(response.data))
+                .catch(e => setAvailableError(e.response.data.message))
+        }
         console.log('State:', selectedState);
         console.log('District:', selectedDistrict);
         console.log('Blood Group:', selectedBloodGroup);
         console.log('Blood Component:', selectedBloodComponent);
     };
 
-    return (
-        <div className="container mt-5">
-            <div>Blood Stock Availability</div>
+    useEffect(() => {
+        axios.get('http://localhost:5000/rakadata/states')
+            .then(response => setStateData(response.data))
+            .catch(e => console.log(e))
+    }, [])
+
+    useEffect(() => {
+        if (selectedState) {
+            axios.get(`http://localhost:5000/rakadata/districts/${selectedState}`)
+                .then(response => setDistrictsData(response.data))
+                .catch(e => console.log(e))
+        }
+    }, [selectedState])
+
+    console.log(availableBlood, availableError)
+
+    return (<div className="container mt-5">
+        <div>Blood Stock Availability</div>
+        {stateData &&
             <div className="row mt-5">
                 <div className="col-2">
                     <select
@@ -63,10 +93,10 @@ const LookingForBlood = () => {
                         value={selectedState}
                         required
                     >
-                        <option value="">Select State</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option defaultValue={""}>Select Blood Group</option>
+                        {stateData && stateData.map((item) => (
+                            <option value={item}>{item}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="col-2">
@@ -79,9 +109,9 @@ const LookingForBlood = () => {
                         required
                     >
                         <option value="">Select District</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {districtsData && districtsData.map((item) => (
+                            <option value={item}>{item}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="col-3">
@@ -124,9 +154,77 @@ const LookingForBlood = () => {
                         Search
                     </button>
                 </div>
-            </div>
-        </div>
-    );
+                {loading && <div className="alert alert-primary alert-background mt-5" role="alert">
+                    select your requirement and click the button to check the availability
+                </div>}
+                {availableBlood &&  <table className="table mt-5">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">District</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Place Name</th>
+                        <th scope="col">Blood Group</th>
+                        <th scope="col">Component Type</th>
+                        <th scope="col">UnitsAvailable</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {availableBlood && availableBlood.map((item, index) => (
+                        <tr>
+                            <th scope="row">{index}</th>
+                            <td>{item.district}</td>
+                            <td>{item.state}</td>
+                            <td>
+                                {item.places.map((item) => (
+                                    <div>
+                                        <div>{item.name}</div>
+                                        <hr/>
+                                    </div>
+                                ))}
+                            </td>
+                            <td>
+                                {item.places.map((item) => (
+                                    <div>
+                                        <div>{item.bloodGroups.map((blood) => (
+                                            <div>
+                                                <div>{blood.group}</div>
+                                            </div>
+                                        ))}</div>
+                                    </div>
+                                ))}
+                            </td>
+                            <td>
+                                {item.places.map((item) => (
+                                    <div>
+                                        <div>{item.bloodGroups.map((blood) => (
+                                            <div>
+                                                <div>{blood.component}</div>
+                                            </div>
+                                        ))}</div>
+                                    </div>
+                                ))}
+                            </td>
+                            <td>
+                                {item.places.map((item) => (
+                                    <div>
+                                        <div>{item.bloodGroups.map((blood) => (
+                                            <div>
+                                                <div>{blood.unitsAvailable}</div>
+                                            </div>
+                                        ))}</div>
+                                    </div>
+                                ))}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>}
+                {availableError && <div className="alert alert-danger alert-background mt-5" role="alert">
+                    No units found!
+                </div>}
+            </div>}
+    </div>);
 };
 
 export default LookingForBlood;
