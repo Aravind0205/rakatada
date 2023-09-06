@@ -53,6 +53,12 @@ body {
   background-color: #000000;
 }
 
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 .hero-section {
   background: #FAEBE3;
 }
@@ -82,4 +88,20 @@ body {
     padding: 15px 25px;
     border-radius: 10px;
     border: none;
+}
+
+.form-select {
+  color: white;
+}
+
+.form-color {
+  color: black;;
+}
+.form-input {
+  background: white;
+}
+
+.button-theme {
+  background: #FC7484;
+  border: none;
 }

@@ -6,7 +6,6 @@ const nextConfig = {
   output: "export",
   trailingSlash: true,
   distDir: "dist",
-  assetPrefix: "./",
 };
 
 module.exports = nextConfig;

@@ -4,7 +4,7 @@ import BrandLogo from '../assets/images/brand.svg'
 
 const Footer = () => {
     return (
-        <div className={"hero-section text-center mt-5"}>
+        <div className={"hero-section footer text-center mt-5"}>
             <Image src={BrandLogo} width={65} height={65}/>
             <div>Copyright@2023 Roehampton</div>
         </div>

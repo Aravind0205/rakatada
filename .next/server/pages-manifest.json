@@ -1,0 +1,12 @@
+{
+  "/_error": "pages/_error.js",
+  "/donateBlood": "pages/donateBlood.html",
+  "/_document": "pages/_document.js",
+  "/_app": "pages/_app.js",
+  "/layout": "pages/layout.html",
+  "/": "pages/index.html",
+  "/learn": "pages/learn.html",
+  "/login": "pages/login.html",
+  "/lookingForBlood": "pages/lookingForBlood.html",
+  "/404": "pages/404.html"
+}

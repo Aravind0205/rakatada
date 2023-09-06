@@ -1,0 +1,64 @@
+{
+  "polyfillFiles": [
+    "static/chunks/polyfills-78c92fac7aa8fdd8.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [
+    "static/P9x2lWl5pHz3_QEyuw-Fn/_buildManifest.js",
+    "static/P9x2lWl5pHz3_QEyuw-Fn/_ssgManifest.js"
+  ],
+  "rootMainFiles": [],
+  "pages": {
+    "/": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/chunks/pages/index-e8fc417eded39d9c.js"
+    ],
+    "/_app": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/css/b6c10a95667098f9.css",
+      "static/chunks/pages/_app-74a4e4d18cc3c5d7.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/chunks/pages/_error-54de1933a164a1ff.js"
+    ],
+    "/donateBlood": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/chunks/pages/donateBlood-08162102aaef9ee8.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/chunks/pages/layout-cc425207a114f5c7.js"
+    ],
+    "/learn": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/chunks/pages/learn-39e91bb536c0ee3f.js"
+    ],
+    "/login": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/chunks/pages/login-ef472431fc4c8a1d.js"
+    ],
+    "/lookingForBlood": [
+      "static/chunks/webpack-6f0e0dcf15b6875d.js",
+      "static/chunks/framework-63157d71ad419e09.js",
+      "static/chunks/main-6c2f24138b6cd6ca.js",
+      "static/chunks/pages/lookingForBlood-f266beedb8bdf8b3.js"
+    ]
+  },
+  "ampFirstPages": []
+}
