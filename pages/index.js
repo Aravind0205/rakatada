@@ -3,6 +3,7 @@ import HeroImage from "../assets/images/heroImage.svg";
 import Group from "../assets/images/group.svg";
 import BloodBag from "../assets/images/bloogBag.svg"
 
+
 export default function Home() {
     return (
         <div className="home-screen">
