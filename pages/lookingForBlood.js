@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {useRouter} from 'next/router';
 
 const LookingForBlood = () => {
     const [selectedState, setSelectedState] = useState('');
@@ -12,6 +13,20 @@ const LookingForBlood = () => {
     const [availableBlood, setAvailableBlood] = useState(undefined);
     const [availableError, setAvailableError] = useState("");
     const [loading, setIsLoading] = useState(true);
+    const [name, setName] = useState("");
+    const [emailAddress, setEmailAddress] = useState("");
+    const [address, setAddress] = useState("");
+    const [bloodGroup, setBloodGroup] = useState("");
+    const [contact, setContact] = useState("");
+    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, []);
 
     const handleStateChange = (event) => {
         const newState = event.target.value;
@@ -79,7 +94,30 @@ const LookingForBlood = () => {
         }
     }, [selectedState])
 
-    console.log(availableBlood, availableError)
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        if (token) {
+            try {
+                const formData = {
+                    name: name,
+                    email: emailAddress,
+                    bloodGroup: bloodGroup,
+                    address: address,
+                    contactNumber: contact
+                };
+                const apiUrl = 'http://localhost:5000/rakadata/emergencyEmail';
+                const response = await axios.post(apiUrl, formData);
+                alert(response.data.message)
+                window.location.reload();
+                console.log('Response:', response.data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        } else {
+            router.push("/login")
+        }
+    };
+
 
     return (<div className="container mt-5">
         <div>Blood Stock Availability</div>
@@ -157,7 +195,7 @@ const LookingForBlood = () => {
                 {loading && <div className="alert alert-primary alert-background mt-5" role="alert">
                     select your requirement and click the button to check the availability
                 </div>}
-                {availableBlood &&  <table className="table mt-5">
+                {availableBlood && <table className="table mt-5">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -224,6 +262,58 @@ const LookingForBlood = () => {
                     No units found!
                 </div>}
             </div>}
+        <div className="h4 mt-3">Request For Urgent Blood Need</div>
+        <small>please login or sign up before requesting</small>
+        <div className="col-lg-6">
+            <form className="card2 card border-0 px-4 py-5 was-validated">
+                <div className="row px-3">
+                    <label htmlFor={"name"} className="mb-1">
+                        <div className="mb-0 text-sm form-color">Name</div>
+                    </label>
+                    <input id={"name"} onChange={(e) => setName(e.target.value)}
+                           className="mb-4 form-input text-dark"
+                           type="text" name="name"
+                           placeholder="Enter a your Name" required={true}/>
+                </div>
+                <div className="row px-3">
+                    <label htmlFor={"email"} className="mb-1">
+                        <div className="mb-0 text-sm form-color">Email Address</div>
+                    </label>
+                    <input id={"email"} onChange={(e) => setEmailAddress(e.target.value)}
+                           className="mb-4 form-input text-dark" type="text" name="email"
+                           placeholder="Enter a valid email address" required={true}/>
+                </div>
+                <div className="row px-3">
+                    <label htmlFor={"bloodGroup"} className="mb-1">
+                        <div className="mb-0 text-sm form-color">Blood group</div>
+                    </label>
+                    <input id={"bloodGroup"} onChange={(e) => setBloodGroup(e.target.value)}
+                           className="mb-4 form-input text-dark" type="text" name="bloodGroup"
+                           placeholder="Enter a required Blood group" required={true}/>
+                </div>
+                <div className="row px-3">
+                    <label htmlFor={"address"} className="mb-1">
+                        <div className="mb-0 text-sm form-color">Address</div>
+                    </label>
+                    <input id={"address"} onChange={(e) => setAddress(e.target.value)}
+                           className="mb-4 form-input text-dark" type="text" name="address"
+                           placeholder="Enter a full address with pin code, state and district" required={true}/>
+                </div>
+                <div className="row px-3">
+                    <label htmlFor={"contact"} className="mb-1">
+                        <div className="mb-0 text-sm form-color">Contact Number</div>
+                    </label>
+                    <input id={"contact"} onChange={(e) => setContact(e.target.value)}
+                           className="mb-4 form-input text-dark" type="text" name="contact"
+                           placeholder="Enter a valid contact number" required={true}/>
+                </div>
+                <div className="row mb-3 px-3 mt-4">
+                    <button type="submit" onClick={handleFormSubmit}
+                            className="btn btn-blue text-center button-theme">Request
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>);
 };
 

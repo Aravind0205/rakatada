@@ -1,9 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image'
 import Link from "next/link";
 import BrandLog from "../assets/images/brand.svg"
 
 const NavbarComponent = () => {
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -26,9 +39,15 @@ const NavbarComponent = () => {
                         <li className="nav-item">
                             <Link className="nav-link" href="learn">Learn</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" href="login">login/signUp</Link>
-                        </li>
+                        {token ? (
+                            <li>
+                                <div className="nav-link" onClick={handleLogout}>Logout</div>
+                            </li>
+                        ) : (
+                            <li>
+                                <Link className="nav-link" href="learn">Login/Sign Up</Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
